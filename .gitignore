@@ -1,0 +1,6 @@
+build
+ponydoc/version.pony
+**/_repos
+**/_corral
+.vscode
+*.code-workspace
