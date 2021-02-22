@@ -33,12 +33,20 @@ primitive CLI
           "build",
           "Build documentation for a package",
           [ OptionSpec.string(
+              "output",
+              "Write generated docs here",
+              'o',
+              ".")
+            OptionSpec.string(
               "pony",
               "Specify the pony installation to use",
-              None,
+              'p',
               "/usr/local/lib/pony/0.38.3-2e8f0404/bin/")
           ],
           [ ArgSpec.string(
+              "backend",
+              "Backend to use")
+            ArgSpec.string(
               "package",
               "Directory to build",
               ".")

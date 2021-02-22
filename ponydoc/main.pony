@@ -1,12 +1,11 @@
 use "cli"
-use "libponyc"
-use "backend/mkdocs"
+use "cmd"
 
 actor Main
-  let _out: OutStream
+  let _env: Env
 
   new create(env: Env) =>
-    _out = env.out
+    _env = env
 
     // Parse the CLI args and handle help and errors.
     let command =
@@ -28,14 +27,7 @@ actor Main
     end
 
   be build(command: Command val) =>
-    let b = command.arg("package").string()
-    let i = command.option("pony").string()
-
-    match Ponydoc.load(b, i)
-    | let ast: AST => Mkdocs.generate_docs(ast)
-    else
-      _out.print("No AST!")
-    end
+    Build(_env, command)
 
   fun @runtime_override_defaults(rto: RuntimeOptions) =>
     rto.ponynoblock = true
