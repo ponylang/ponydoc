@@ -36,7 +36,7 @@ primitive CLI
               "pony",
               "Specify the pony installation to use",
               None,
-              "/usr/local/lib/pony/0.38.3-f0680cf0/bin/")
+              "/usr/local/lib/pony/0.38.3-2e8f0404/bin/")
           ],
           [ ArgSpec.string(
               "package",
