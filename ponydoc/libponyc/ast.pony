@@ -13,8 +13,14 @@ class val AST
   fun val child(): (AST | None) =>
     ASTBuilder.from_nullable(ASTOperations.child(_s))
 
+  fun val sibling(): (AST | None) =>
+    ASTBuilder.from_nullable(ASTOperations.sibling(_s))
+
   fun val package_filename(): String =>
     PackageOperations.filename(_s)
+
+  fun val package_qualified_name(): String =>
+    PackageOperations.qualified_name(_s)
 
   fun val print(): None =>
     ASTOperations.print(_s)

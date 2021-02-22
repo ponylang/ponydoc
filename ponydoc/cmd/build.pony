@@ -33,6 +33,7 @@ primitive Build
           Mkdocs(output_path)?
         else
           UnableToCreateBackend(env)
+          return
         end
       else
         NoBackendSupplied(env)
@@ -40,7 +41,7 @@ primitive Build
       end
 
       match Ponydoc.load(package, pony)
-      | let ast: AST => Guts.generate_docs(ast)
+      | let ast: AST => Guts.generate_docs(backend, ast)
       else
         env.out.print("No AST!")
       end

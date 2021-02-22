@@ -1,5 +1,6 @@
 use @ast_child[NullablePointer[LibPonycAST]](ast: LibPonycAST)
 use @ast_print[None](ast: LibPonycAST, width: USize)
+use @ast_sibling[NullablePointer[LibPonycAST]](ast: LibPonycAST)
 
 primitive ASTOperations
   fun child(ast: LibPonycAST): NullablePointer[LibPonycAST] =>
@@ -7,6 +8,9 @@ primitive ASTOperations
 
   fun print(ast: LibPonycAST): None =>
     @ast_print(ast, 80)
+
+  fun sibling(ast: LibPonycAST): NullablePointer[LibPonycAST] =>
+    @ast_sibling(ast)
 
  struct val LibPonycAST
   var token: Pointer[LibPonycToken]
