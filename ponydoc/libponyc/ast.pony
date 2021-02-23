@@ -13,6 +13,12 @@ class val AST
   fun val child(): (AST | None) =>
     ASTBuilder.from_nullable(ASTOperations.child(_s))
 
+  fun val id(): USize =>
+    ASTOperations.id(_s)
+
+  fun val name(): String =>
+    ASTOperations.name(_s)
+
   fun val sibling(): (AST | None) =>
     ASTBuilder.from_nullable(ASTOperations.sibling(_s))
 

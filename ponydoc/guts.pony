@@ -24,14 +24,15 @@ class Guts
     // The Main package appears first, other packages in alphabetical order
     match ast.child()
     | let main: AST =>
+      _bundle.add_package(_doc_package(main))
       var p = main
       while true do
-        try
+        match p.sibling()
+        | let s: AST =>
           // TODO STA: we can filter out packages we don't care about here
-          p = (p.sibling() as AST)
-          // TODO STA: move this logic into _doc_packge
-          let pqn = p.package_qualified_name()
-          _bundle.add_package(Package(pqn))
+          // could also filter out "testing packages" here
+          _bundle.add_package(_doc_package(s))
+          p = s
         else
           break
         end
@@ -43,8 +44,45 @@ class Guts
 
     for p in _bundle.packages.values() do
       @printf[None]("package ==> %s\n".cstring(), p.name.cstring())
+      match p.doc_string
+      | let ds: String =>
+        @printf[None]("doc string ==> %s\n".cstring(), ds.cstring())
+      end
     end
 
-  fun ref _doc_package(ast: AST) =>
-    None
+  fun ref _doc_package(ast: AST): Package =>
+    let pqn = ast.package_qualified_name()
+    var doc_string: (String | None)= None
+    var p = ast.child()
+    while true do
+      match p
+      | let m: AST =>
+        if m.id() == StringToken() then
+          doc_string = m.name()
+        else
+          var t = m.child()
+          while true do
+            match t
+            | let q: AST =>
+              if q.id() != UseToken() then
+                // TODO STA:
+                // can filter out testing and internal names here
+                _doc_entity(q)
+              end
+              t = q.sibling()
+            else
+              break
+            end
+          end
+        end
+        p = m.sibling()
+      else
+        break
+      end
+    end
 
+    Package(pqn, doc_string)
+
+  fun ref _doc_entity(ast: AST) =>
+    // TODO STA: source here? or do we get for something else
+    None
