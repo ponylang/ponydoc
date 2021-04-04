@@ -14,7 +14,6 @@ primitive Build
       let package = command.arg("package").string()
       let pony = command.option("pony").string()
 
-
       let output_path = try
         let p = FilePath(ambient, output)?
         if not p.mkdir() then

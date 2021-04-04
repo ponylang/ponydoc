@@ -2,16 +2,26 @@ use "files"
 use "../"
 
 class Mkdocs is Backend
-  let _docs_dir: FilePath
+  let _base_dir: FilePath
+  let _sub_dir: FilePath
+  let _sources_dir: FilePath
 
   let _home_file: File
   let _index_file: File
 
   new create(d: FilePath) ? =>
-    _docs_dir = d
+    _base_dir = d
+    _sub_dir = _base_dir.join("docs", _base_dir.caps)?
+    if not _sub_dir.mkdir() then
+      error
+    end
+    _sources_dir = _sub_dir.join("src", _sub_dir.caps)?
+    if not _sources_dir.mkdir() then
+      error
+    end
 
-    _home_file = FileCreator(_docs_dir, "index.md")?
-    _index_file = FileCreator(_docs_dir, "mkdocs.yml")?
+    _home_file = FileCreator(_sub_dir, "index.md")?
+    _index_file = FileCreator(_base_dir, "mkdocs.yml")?
 
     _home_header()
 

@@ -1,4 +1,5 @@
 build
+/docs
 ponydoc/version.pony
 **/_repos
 **/_corral
