@@ -3,6 +3,8 @@ use "libponyc/operations"
 use "backend"
 use "free_candy"
 
+use @printf[None](fmt: Pointer[U8] tag, ...)
+
 class Guts
   var _bundle: Bundle
 
@@ -43,10 +45,10 @@ class Guts
     end
 
     for p in _bundle.packages.values() do
-      @printf[None]("package ==> %s\n".cstring(), p.name.cstring())
+      @printf("package ==> %s\n".cstring(), p.name.cstring())
       match p.doc_string
       | let ds: String =>
-        @printf[None]("doc string ==> %s\n".cstring(), ds.cstring())
+        @printf("doc string ==> %s\n".cstring(), ds.cstring())
       end
     end
 
