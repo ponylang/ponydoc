@@ -43,7 +43,7 @@ class Mkdocs is Backend
 
 primitive FileCreator
   fun apply(dir: FilePath, name: String): File ? =>
-    let fp = FilePath(dir, name)?
+    let fp = FilePath.from(dir, name)?
     match CreateFile(fp)
     | let file: File => file
     else
