@@ -59,4 +59,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Test with most recent ponyc release
-        run: make test
+        run: |
+          git config --global --add safe.directory /__w/ponydoc/ponydoc
+          make test
