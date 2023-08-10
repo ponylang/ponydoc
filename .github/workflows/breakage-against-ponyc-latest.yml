@@ -13,4 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Test
-        run: make test config=debug
+        run: |
+          git config --global --add safe.directory /__w/ponydoc/ponydoc
+          make test config=debug
