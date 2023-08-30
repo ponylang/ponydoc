@@ -33,7 +33,16 @@ fi
 # allow above so we can display nice error messages for expected unset variables
 set -o nounset
 
+## DockerHub
+
 # Build and push "latest" tag e.g. ponylang/ponyup:latest
-DOCKER_TAG=${GITHUB_REPOSITORY}:latest
+DOCKER_TAG="${GITHUB_REPOSITORY}:latest"
+docker build --pull -t "${DOCKER_TAG}" .
+docker push "${DOCKER_TAG}"
+
+## GitHub Container Registry
+
+# Build and push "latest" tag e.g. ponylang/ponyup:latest
+DOCKER_TAG="ghcr.io/${GITHUB_REPOSITORY}:latest"
 docker build --pull -t "${DOCKER_TAG}" .
 docker push "${DOCKER_TAG}"
