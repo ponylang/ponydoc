@@ -1,4 +1,4 @@
-FROM ponylang/ponyc:alpine AS build
+FROM ghcr.io/ponylang/ponyc:alpine AS build
 
 WORKDIR /src/ponydoc
 
