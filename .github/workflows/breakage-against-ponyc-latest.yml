@@ -5,6 +5,9 @@ on:
     types:
       - shared-docker-builders-updated
 
+permissions:
+  packages: read
+
 jobs:
   vs-latest-ponyc:
     name: Verify main against the latest ponyc
